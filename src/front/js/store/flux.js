@@ -22,14 +22,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			getMessage: async () => {
-				try{
+				try {
 					// fetching data from the backend
 					const resp = await fetch(process.env.BACKEND_URL + "/api/hello")
 					const data = await resp.json()
 					setStore({ message: data.message })
 					// don't forget to return something, that is how the async resolves
 					return data;
-				}catch(error){
+				} catch (error) {
 					console.log("Error loading message from backend", error)
 				}
 			},
@@ -46,6 +46,36 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				//reset the global store
 				setStore({ demo: demo });
+			},
+			login: async () => {
+				const email = "carlos@g.com"
+				const password = "12345"
+
+				const resp = await fetch(process.env.BACKEND_URL + "/login", {
+					method: "POST",
+					headers: { "Content-Type": "application/json"},
+					body: JSON.stringify({email, password})
+				})
+
+				if(!resp.ok) throw Error("There was a problem in the login request")
+
+				const data = await resp.json()
+				console.log("login action", data)
+
+				localStorage.setItem("token", data.token)
+
+				//return data
+			},
+			private: async () =>{
+				const resp = await fetch(process.env.BACKEND_URL + "/private",{
+					method: "GET",
+					headers: {
+						 "Content-Type": "application/json",
+						 "Authorization": 'Bearer ' + localStorage.getItem("token")
+						}					
+				})
+				console.log(resp)
+				const data = await resp.json()
 			}
 		}
 	};
