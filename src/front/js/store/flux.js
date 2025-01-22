@@ -47,9 +47,21 @@ const getState = ({ getStore, getActions, setStore }) => {
 				//reset the global store
 				setStore({ demo: demo });
 			},
-			login: async () => {
-				const email = "carlos@g.com"
-				const password = "12345"
+			signUp: async (email, password) =>{
+				
+				const resp = await fetch(process.env.BACKEND_URL + "/register",{
+					method: "POST",
+					headers: { "Content-Type": "application/json"},
+					body: JSON.stringify({email, password})
+				})
+
+				if(!resp.ok) throw Error("There was a problem in the sign up request")
+				
+				const data = await resp.json()
+				console.log("register action", data)	
+
+			},
+			login: async (email, password) => {				
 
 				const resp = await fetch(process.env.BACKEND_URL + "/login", {
 					method: "POST",
