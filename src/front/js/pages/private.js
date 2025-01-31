@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import parchis from "../../img/parchis.jpg";
+import danger from "../../img/danger.png";
 
 export const PrivateZone = () => {  
   const navigate = useNavigate();
@@ -16,12 +16,13 @@ export const PrivateZone = () => {
 
 
   return (
-    <div className='row'>
-      <div className='col-6'>
+    <div className='row  justify-content-center mt-5'>
+      
+      <div className='col-6 text-center'>
         <h1 className="display-1 mb-5 fw-bold" style={{ color: "#cc5454" }}>
           Private Zone
         </h1>
-        <img src={parchis} class="img-fluid navbar-logo" alt="parchis" />
+        <img src={danger} class="img-fluid navbar-logo" alt="danger" style={{ width: "50%", height: "50%" }} />
       </div>
     </div>
   )

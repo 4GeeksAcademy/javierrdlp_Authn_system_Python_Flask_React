@@ -35,8 +35,7 @@ export const Login = () => {
             console.log("---------", token)
             if(token != null){
                 navigate("/private") 
-            }
-            
+            }            
         }
     };
 
